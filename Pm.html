@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .conversation {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+
+        .sent {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .received {
+            background-color: #f2f2f2;
+            align-self: flex-start;
+        }
+
+        .compose {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+    <title>Instagram DM</title>
+</head>
+<body>
+    <div class="container">
+        <div class="conversation">
+            <div class="message sent">Hey there!</div>
+            <div class="message received">Hi! How's it going?</div>
+            <!-- More messages... -->
+        </div>
+        <div class="compose">
+            <textarea id="messageInput" placeholder="Type your message..."></textarea>
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sendButton = document.getElementById("sendButton");
+            const messageInput = document.getElementById("messageInput");
+            const conversation = document.querySelector(".conversation");
+
+            sendButton.addEventListener("click", function() {
+                const messageText = messageInput.value;
+                if (messageText.trim() !== "") {
+                    const message = document.createElement("div");
+                    message.classList.add("message", "sent");
+                    message.textContent = messageText;
+                    conversation.appendChild(message);
+                    messageInput.value = "";
+                    conversation.scrollTop = conversation.scrollHeight;
+                }
+            });
+
+            messageInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    sendButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
